@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace BZ2KMT_HFT_2021222.Client
 {
@@ -6,7 +7,7 @@ namespace BZ2KMT_HFT_2021222.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename =|DataDirectory|\CarRentDb.mdf; Integrated Security = True
         }
     }
 }
