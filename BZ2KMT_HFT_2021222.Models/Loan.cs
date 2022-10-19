@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Models
 {
-    public class Loans
+    public class Loan
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,12 +23,12 @@ namespace BZ2KMT_HFT_2021222.Models
         [Required]
         public int RentTimeInDay { get; set; }
 
-        public Loans()
+        public Loan()
         {
 
         }
 
-        public Loans(string line)
+        public Loan(string line)
         {
             string[] split = line.Split('#');
             LoanId = int.Parse(split[0]);

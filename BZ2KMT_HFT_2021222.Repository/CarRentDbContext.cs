@@ -8,7 +8,7 @@ namespace BZ2KMT_HFT_2021222.Repository
     {
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brand { get; set; }
-        public DbSet<Loans> Loans { get; set; }
+        public DbSet<Loan> Loans { get; set; }
 
         public CarRentDbContext()
         {
@@ -23,7 +23,8 @@ namespace BZ2KMT_HFT_2021222.Repository
                     @"AttachDbFilename =|DataDirectory|\CarRentDb.mdf; Integrated Security = True";
 
                 builder
-                    .UseSqlServer(conn);
+                    .UseSqlServer(conn)
+                    .UseLazyLoadingProxies();
             }
         }
 
@@ -49,7 +50,7 @@ namespace BZ2KMT_HFT_2021222.Repository
                 new Brand("3#Opel")
             });
 
-            modelBuilder.Entity<Loans>().HasData(new Loans[]
+            modelBuilder.Entity<Loan>().HasData(new Loan[]
             {
 
             });
