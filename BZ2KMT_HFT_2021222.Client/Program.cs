@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BZ2KMT_HFT_2021222.Repository;
+using System;
 using System.IO;
+using System.Linq;
 
 namespace BZ2KMT_HFT_2021222.Client
 {
@@ -7,7 +9,9 @@ namespace BZ2KMT_HFT_2021222.Client
     {
         static void Main(string[] args)
         {
-            //Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename =|DataDirectory|\CarRentDb.mdf; Integrated Security = True
+            //CarRentDbContext ctx = new CarRentDbContext();
+
+            //ctx.Brand.ToList().ForEach(t => Console.WriteLine(t.BrandName));
         }
     }
 }

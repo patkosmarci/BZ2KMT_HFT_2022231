@@ -1,4 +1,5 @@
-﻿using BZ2KMT_HFT_2021222.Models;
+﻿using BZ2KMT_HFT_2021222.Logic.Interfaces;
+using BZ2KMT_HFT_2021222.Models;
 using BZ2KMT_HFT_2021222.Repository;
 using System;
 using System.Collections;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BZ2KMT_HFT_2021222.Logic
 {
-    public class CarLogic
+    public class CarLogic : ICarLogic
     {
         IRepository<Car> repository;
         public CarLogic(IRepository<Car> repository)
@@ -14,24 +15,18 @@ namespace BZ2KMT_HFT_2021222.Logic
             this.repository = repository;
         }
 
-        public void Create(Car item)
+        public void Create(Car car)
         {
-            if(item.Model == null)
-            {
+            if(car.Model == null)
                 throw new ArgumentNullException("You must need to give a modell name");
-            }
             else
-            {
-                repository.Create(item);
-            }
+                repository.Create(car);
         }
         public Car Read(int id)
         {
             var car = repository.Read(id);
             if(car == null)
-            {
                 throw new ArgumentNullException("Car not exists");
-            }
             return car;
         }
         public void Delete(int id)
@@ -42,9 +37,9 @@ namespace BZ2KMT_HFT_2021222.Logic
         {
             return repository.ReadAll();
         }
-        public void Update(Car item)
+        public void Update(Car car)
         {
-            repository.Update(item);
+            repository.Update(car);
         }
     }
 }

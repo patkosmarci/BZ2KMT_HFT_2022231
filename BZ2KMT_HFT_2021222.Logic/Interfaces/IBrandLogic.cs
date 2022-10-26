@@ -9,7 +9,7 @@ namespace BZ2KMT_HFT_2021222.Logic.Interfaces
 {
     internal interface IBrandLogic
     {
-        void Create(Car item);
+        void Create(Brand item);
         Brand Read(int id);
         void Delete(int id);
         IEnumerable<Brand> ReadAll();

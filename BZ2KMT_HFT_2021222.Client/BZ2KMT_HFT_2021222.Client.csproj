@@ -5,4 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BZ2KMT_HFT_2021222.Repository\BZ2KMT_HFT_2021222.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
