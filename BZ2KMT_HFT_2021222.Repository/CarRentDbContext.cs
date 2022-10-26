@@ -36,6 +36,12 @@ namespace BZ2KMT_HFT_2021222.Repository
                 .HasForeignKey(car => car.BrandId)
                 .OnDelete(DeleteBehavior.Cascade));
 
+            modelBuilder.Entity<Loan>(loan => loan
+                .HasOne(loan => loan.Car)
+                .WithMany(Car => Car.Loans)
+                .HasForeignKey(loan => loan.CarId)
+                .OnDelete(DeleteBehavior.Cascade));
+
             modelBuilder.Entity<Car>().HasData(new Car[]
             {
                 new Car("1#Swift#Sport#Petrol#1989#2"),
@@ -68,7 +74,10 @@ namespace BZ2KMT_HFT_2021222.Repository
 
             modelBuilder.Entity<Loan>().HasData(new Loan[]
             {
-
+                new Loan("1#2#2021-12-21#4#5"),
+                new Loan("2#2#2021-12-21#4#5"),
+                new Loan("3#2#2021-12-21#4#5"),
+                new Loan("4#2#2021-12-21#4#5")
             });
         }
     }

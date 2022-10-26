@@ -15,13 +15,13 @@ namespace BZ2KMT_HFT_2021222.Client
         static LoanLogic loanLogic;
         static void List(string entity)
         {
-            if(entity == "Car")
+            if(entity == "Loan")
             {
-                var items = carLogic.ReadAll();
-                Console.WriteLine("Id\tBrandName\tModel");
+                var items = loanLogic.ReadAll();
+                Console.WriteLine("Id\tRentDate\tCar");
                 foreach (var item in items)
                 {
-                    Console.WriteLine(item.CarId + "\t" + item.Brand.BrandName + "\t" + item.Model);
+                    Console.WriteLine($"{item.LoanId}\t{item.RentDate.ToShortDateString()}\t{item.Car.Brand.BrandName} {item.Car.Model}");
                 }
             }
             Console.ReadLine();

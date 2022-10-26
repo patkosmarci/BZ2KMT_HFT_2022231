@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,11 +23,12 @@ namespace BZ2KMT_HFT_2021222.Models
         [ForeignKey(nameof(Brand))]
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; }
+        public virtual ICollection<Loan> Loans { get; set; }
 
 
         public Car()
         {
-
+            Loans = new HashSet<Loan>();
         }
 
         public Car(string line)
@@ -37,6 +40,7 @@ namespace BZ2KMT_HFT_2021222.Models
             FuelType = split[3];
             ReleaseYear = int.Parse(split[4]);
             BrandId = int.Parse(split[5]);
+            Loans = new HashSet<Loan>();
         }
     }
 }

@@ -14,14 +14,15 @@ namespace BZ2KMT_HFT_2021222.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LoanId { get; set; }
         [Required]
-        [StringLength(100)]
-        public string Rental { get; set; }
+        public int RentalId { get; set; }
         [Required]
         public DateTime RentDate { get; set; }
         [Required]
+        [ForeignKey(nameof(Car))]
         public int CarId { get; set; }
         [Required]
         public int RentTimeInDay { get; set; }
+        public virtual Car Car { get; set; }
 
         public Loan()
         {
@@ -32,7 +33,7 @@ namespace BZ2KMT_HFT_2021222.Models
         {
             string[] split = line.Split('#');
             LoanId = int.Parse(split[0]);
-            Rental = split[1];
+            RentalId = int.Parse(split[1]);
             RentDate = DateTime.Parse(split[2]);
             CarId = int.Parse(split[3]);
             RentTimeInDay = int.Parse(split[4]);
