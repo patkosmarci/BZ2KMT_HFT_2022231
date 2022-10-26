@@ -16,10 +16,11 @@ namespace BZ2KMT_HFT_2021222.Models
         [Required]
         [StringLength(50)]
         public string BrandName { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
 
         public Brand()
         {
-
+            Cars = new HashSet<Car>();
         }
 
         public Brand(string line)
@@ -27,6 +28,7 @@ namespace BZ2KMT_HFT_2021222.Models
             string[] split = line.Split('#');
             BrandId = int.Parse(split[0]);
             BrandName = split[1];
+            Cars = new HashSet<Car>();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace BZ2KMT_HFT_2021222.Client
                 Console.WriteLine("Id\tBrandName\tModel");
                 foreach (var item in items)
                 {
-                    Console.WriteLine(item.CarId + "\t" + item.Model);
+                    Console.WriteLine(item.CarId + "\t" + item.Brand.BrandName + "\t" + item.Model);
                 }
             }
             Console.ReadLine();

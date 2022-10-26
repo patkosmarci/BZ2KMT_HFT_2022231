@@ -20,6 +20,7 @@ namespace BZ2KMT_HFT_2021222.Models
         public int ReleaseYear { get; set; }
         [ForeignKey(nameof(Brand))]
         public int BrandId { get; set; }
+        public virtual Brand Brand { get; set; }
 
 
         public Car()
