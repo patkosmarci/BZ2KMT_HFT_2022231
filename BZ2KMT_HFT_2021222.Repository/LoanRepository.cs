@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Repository
 {
-    internal class LoanRepository : Repository<Loan>, IRepository<Loan>
+    public class LoanRepository : Repository<Loan>, IRepository<Loan>
     {
         public LoanRepository(CarRentDbContext ctx) : base(ctx)
         {

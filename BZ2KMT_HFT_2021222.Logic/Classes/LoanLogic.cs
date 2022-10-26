@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Classes
 {
-    internal class LoanLogic : ILoanLogic
+    public class LoanLogic : ILoanLogic
     {
         IRepository<Loan> repository;
 

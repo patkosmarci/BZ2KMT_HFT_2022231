@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Repository
 {
-    internal class BrandRepository : Repository<Brand>, IRepository<Brand>
+    public class BrandRepository : Repository<Brand>, IRepository<Brand>
     {
         public BrandRepository(CarRentDbContext ctx) : base(ctx)
         {

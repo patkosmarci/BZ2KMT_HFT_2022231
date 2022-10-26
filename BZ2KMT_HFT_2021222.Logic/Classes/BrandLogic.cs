@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Classes
 {
-    internal class BrandLogic : IBrandLogic
+    public class BrandLogic : IBrandLogic
     {
         IRepository<Brand> repository;
 
