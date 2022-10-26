@@ -9,6 +9,7 @@ namespace BZ2KMT_HFT_2021222.Repository
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Loan> Loans { get; set; }
+        public DbSet<Person> Persons { get; set; }
 
         public CarRentDbContext()
         {
@@ -36,11 +37,27 @@ namespace BZ2KMT_HFT_2021222.Repository
                 .HasForeignKey(car => car.BrandId)
                 .OnDelete(DeleteBehavior.Cascade));
 
-            modelBuilder.Entity<Loan>(loan => loan
-                .HasOne(loan => loan.Car)
-                .WithMany(Car => Car.Loans)
-                .HasForeignKey(loan => loan.CarId)
-                .OnDelete(DeleteBehavior.Cascade));
+            modelBuilder.Entity<Loan>()
+                .HasOne(r => r.Car)
+                .WithMany(car => car.Loans)
+                .HasForeignKey(r => r.CarId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Loan>()
+                .HasOne(r => r.Rental)
+                .WithMany(person => person.Loans)
+                .HasForeignKey(r => r.RentalId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Person>()
+                .HasMany(x => x.Cars)
+                .WithMany(x => x.Persons)
+                .UsingEntity<Loan>(
+                    x => x.HasOne(x => x.Car)
+                        .WithMany().HasForeignKey(x => x.CarId).OnDelete(DeleteBehavior.Cascade),
+                    x => x.HasOne(x => x.Rental)
+                        .WithMany().HasForeignKey(x => x.RentalId).OnDelete(DeleteBehavior.Cascade));
 
             modelBuilder.Entity<Car>().HasData(new Car[]
             {
@@ -78,6 +95,14 @@ namespace BZ2KMT_HFT_2021222.Repository
                 new Loan("2#2#2021-12-21#4#5"),
                 new Loan("3#2#2021-12-21#4#5"),
                 new Loan("4#2#2021-12-21#4#5")
+            });
+
+            modelBuilder.Entity<Person>().HasData(new Person[]
+            {
+                new Person("1#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
+                new Person("2#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
+                new Person("3#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
+                new Person("4#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151")
             });
         }
     }

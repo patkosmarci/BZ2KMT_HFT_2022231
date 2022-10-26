@@ -23,11 +23,13 @@ namespace BZ2KMT_HFT_2021222.Models
         [ForeignKey(nameof(Brand))]
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; }
+        public virtual ICollection<Person> Persons { get; set; }
         public virtual ICollection<Loan> Loans { get; set; }
 
 
         public Car()
         {
+            Persons = new HashSet<Person>();
             Loans = new HashSet<Loan>();
         }
 
@@ -40,6 +42,7 @@ namespace BZ2KMT_HFT_2021222.Models
             FuelType = split[3];
             ReleaseYear = int.Parse(split[4]);
             BrandId = int.Parse(split[5]);
+            Persons = new HashSet<Person>();
             Loans = new HashSet<Loan>();
         }
     }

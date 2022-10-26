@@ -23,6 +23,7 @@ namespace BZ2KMT_HFT_2021222.Models
         [Required]
         public int RentTimeInDay { get; set; }
         public virtual Car Car { get; set; }
+        public virtual Person Rental { get; set; }
 
         public Loan()
         {
