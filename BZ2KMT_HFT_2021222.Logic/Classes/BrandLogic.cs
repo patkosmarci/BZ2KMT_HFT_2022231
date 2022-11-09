@@ -3,9 +3,6 @@ using BZ2KMT_HFT_2021222.Models;
 using BZ2KMT_HFT_2021222.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Classes
 {
@@ -36,7 +33,7 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
         {
             repository.Delete(id);
         }
-        public IEnumerable<Brand> ReadAll()
+        public IEnumerable<Brand> ReadAll()        
         {
             return repository.ReadAll();
         }

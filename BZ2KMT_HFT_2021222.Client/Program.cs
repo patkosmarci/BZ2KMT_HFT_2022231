@@ -3,26 +3,29 @@ using BZ2KMT_HFT_2021222.Logic.Classes;
 using BZ2KMT_HFT_2021222.Repository;
 using ConsoleTools;
 using System;
-using System.IO;
-using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace BZ2KMT_HFT_2021222.Client
 {
     internal class Program
     {
-        static CarLogic carLogic;
-        static BrandLogic brandLogic;
-        static LoanLogic loanLogic;
+        static CarClient carClient;
+        static BrandClient brandClient;
+        static LoanClient loanClient;
         static void List(string entity)
-        {
-            if(entity == "Loan")
+        {        
+            if(entity == "Car")
             {
-                var items = loanLogic.ReadAll();
-                Console.WriteLine("Id\tRentDate\tCar");
-                foreach (var item in items)
-                {
-                    Console.WriteLine($"{item.LoanId}\t{item.RentDate.ToShortDateString()}\t{item.Car.Brand.BrandName} {item.Car.Model}");
-                }
+                carClient.ReadAll();
+            }
+            else if(entity == "Brand")
+            {
+                brandClient.ReadAll();
+            }
+            else if(entity == "Loan")
+            {
+                loanClient.ReadAll();
             }
             Console.ReadLine();
         }
@@ -50,9 +53,14 @@ namespace BZ2KMT_HFT_2021222.Client
             var brandRepository = new BrandRepository(ctx);
             var loanRepository = new LoanRepository(ctx);
 
-            carLogic = new CarLogic(carRepository);
-            brandLogic = new BrandLogic(brandRepository);
-            loanLogic = new LoanLogic(loanRepository);
+            var carLogic = new CarLogic(carRepository);
+            var brandLogic = new BrandLogic(brandRepository);
+            var loanLogic = new LoanLogic(loanRepository);
+
+            carClient = new CarClient(carLogic);
+            brandClient = new BrandClient(brandLogic);
+            loanClient = new LoanClient(loanLogic);
+
 
             var carSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Car"))

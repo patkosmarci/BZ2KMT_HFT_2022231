@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Interfaces
 {
-    internal interface IBrandLogic
+    public interface IBrandLogic
     {
         void Create(Brand item);
         Brand Read(int id);
