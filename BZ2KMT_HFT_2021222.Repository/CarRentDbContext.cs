@@ -31,23 +31,10 @@ namespace BZ2KMT_HFT_2021222.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Car>(car => car
+            modelBuilder.Entity<Car>()
                 .HasOne(car => car.Brand)
                 .WithMany(Brand => Brand.Cars)
                 .HasForeignKey(car => car.BrandId)
-                .OnDelete(DeleteBehavior.Cascade));
-
-            modelBuilder.Entity<Loan>()
-                .HasOne(r => r.Car)
-                .WithMany(car => car.Loans)
-                .HasForeignKey(r => r.CarId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-
-            modelBuilder.Entity<Loan>()
-                .HasOne(r => r.Rental)
-                .WithMany(person => person.Loans)
-                .HasForeignKey(r => r.RentalId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Person>()
@@ -56,8 +43,20 @@ namespace BZ2KMT_HFT_2021222.Repository
                 .UsingEntity<Loan>(
                     x => x.HasOne(x => x.Car)
                         .WithMany().HasForeignKey(x => x.CarId).OnDelete(DeleteBehavior.Cascade),
-                    x => x.HasOne(x => x.Rental)
-                        .WithMany().HasForeignKey(x => x.RentalId).OnDelete(DeleteBehavior.Cascade));
+                    x => x.HasOne(x => x.Person)
+                        .WithMany().HasForeignKey(x => x.PersonId).OnDelete(DeleteBehavior.Cascade));
+
+            modelBuilder.Entity<Loan>()
+                .HasOne(x => x.Car)
+                .WithMany(car => car.Loans)
+                .HasForeignKey(x => x.CarId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Loan>()
+                .HasOne(x => x.Person)
+                .WithMany(person => person.Loans)
+                .HasForeignKey(x => x.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Car>().HasData(new Car[]
             {
@@ -91,18 +90,18 @@ namespace BZ2KMT_HFT_2021222.Repository
 
             modelBuilder.Entity<Loan>().HasData(new Loan[]
             {
-                new Loan("1#2#2021-12-21#4#5"),
-                new Loan("2#2#2021-12-21#4#5"),
-                new Loan("3#2#2021-12-21#4#5"),
-                new Loan("4#2#2021-12-21#4#5")
+                new Loan("1#2021-12-21#3#1#5"),
+                new Loan("2#2021-10-30#2#2#5"),
+                new Loan("3#2019-05-03#5#3#5"),
+                new Loan("4#2000-12-12#10#4#5")
             });
 
             modelBuilder.Entity<Person>().HasData(new Person[]
             {
                 new Person("1#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
-                new Person("2#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
-                new Person("3#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
-                new Person("4#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151")
+                new Person("2#Horváth#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
+                new Person("3#Benjámin#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
+                new Person("4#Valami#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151")
             });
         }
     }

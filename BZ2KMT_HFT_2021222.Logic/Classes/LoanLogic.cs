@@ -20,7 +20,7 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
 
         public void Create(Loan loan)
         {
-            if(loan.RentalId == null)
+            if(loan == null)
             {
                 throw new ArgumentNullException("You must add a rental");
             }

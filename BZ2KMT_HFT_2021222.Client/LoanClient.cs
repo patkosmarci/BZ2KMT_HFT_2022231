@@ -18,7 +18,7 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Id\tRental\t\tRented car\tRent date");
             foreach (var item in items)
             {
-                Console.WriteLine($"{item.LoanId}\t{item.Rental.FirstName} {item.Rental.LastName}\t{item.Car.Brand.BrandName} " +
+                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t{item.Car.Brand.BrandName} " +
                     $"{item.Car.Model}\t{item.RentDate.ToShortDateString()}");
             }
         }

@@ -19,10 +19,14 @@ namespace BZ2KMT_HFT_2021222.Client
         public void ReadAll()
         {
             var items = personLogic.ReadAll();
-            Console.WriteLine("Id\tName\t\t\tPhone");
+            Console.WriteLine("Id\tName\t\t\tPhone\t\tRented car");
             foreach (var item in items)
             {
-                Console.WriteLine($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}");
+                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}");
+                foreach (var loan in item.Loans)
+                {
+                    Console.Write($"\t{loan.Car.Brand.BrandName} {loan.Car.Model}\n");
+                }
             }
         }
     }
