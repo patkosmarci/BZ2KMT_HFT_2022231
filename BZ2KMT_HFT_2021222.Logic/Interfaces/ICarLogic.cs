@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Interfaces
 {
-    internal interface ICarLogic
+    public interface ICarLogic
     {
         void Create(Car item);
         Car Read(int id);

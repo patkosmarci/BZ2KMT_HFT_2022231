@@ -21,24 +21,25 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
         public void Create(Loan loan)
         {
             if(loan == null)
-            {
                 throw new ArgumentNullException("You must add a rental");
-            }
             else
-            {
                 repository.Create(loan);
-            }
         }
         public Loan Read(int id)
         {
             var loan = repository.Read(id);
             if (loan == null)
                 throw new ArgumentNullException("Loan not exist");
-            return loan;
+            else
+                return loan;
         }
         public void Delete(int id)
         {
-            repository.Delete(id);
+            var loan = repository.Read(id);
+            if (loan == null)
+                throw new ArgumentNullException($"Loan with {id} not exists");
+            else
+                repository.Delete(id);
         }
         public IEnumerable<Loan> ReadAll()
         {

@@ -17,8 +17,8 @@ namespace BZ2KMT_HFT_2021222.Logic
 
         public void Create(Car car)
         {
-            if(car.Model == null)
-                throw new ArgumentNullException("You must need to give a modell name");
+            if (car == null)
+                throw new ArgumentNullException("You must add a car");
             else
                 repository.Create(car);
         }
@@ -27,11 +27,16 @@ namespace BZ2KMT_HFT_2021222.Logic
             var car = repository.Read(id);
             if(car == null)
                 throw new ArgumentNullException("Car not exists");
-            return car;
+            else
+                return car;
         }
         public void Delete(int id)
         {
-            repository.Delete(id);
+            var car = repository.Read(id);
+            if (car == null)
+                throw new ArgumentNullException($"Car with {id} not exists");
+            else
+                repository.Delete(id);
         }
         public IEnumerable<Car> ReadAll()
         {

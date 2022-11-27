@@ -17,7 +17,7 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
 
         public void Create(Brand brand)
         {
-            if (brand.BrandName == null)
+            if (brand.BrandName == "")
                 throw new ArgumentNullException("You must add a brand name");
             else
                 repository.Create(brand);
@@ -27,11 +27,16 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
             var brand = repository.Read(id);
             if(brand == null)
                 throw new ArgumentNullException("Brand not exist");
-            return brand;
+            else
+                return brand;
         }
         public void Delete(int id)
         {
-            repository.Delete(id);
+            var brand = repository.Read(id);
+            if (brand == null)
+                throw new ArgumentNullException($"Brand with {id} not exist");
+            else
+                repository.Delete(id);
         }
         public IEnumerable<Brand> ReadAll()        
         {

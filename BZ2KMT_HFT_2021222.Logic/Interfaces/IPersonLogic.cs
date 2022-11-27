@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Interfaces
 {
-    internal interface IPerson
+    public interface IPersonLogic
     {
         void Create(Person item);
         Person Read(int id);

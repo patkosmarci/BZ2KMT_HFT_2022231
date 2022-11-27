@@ -1,4 +1,5 @@
-﻿using BZ2KMT_HFT_2021222.Models;
+﻿using BZ2KMT_HFT_2021222.Logic.Interfaces;
+using BZ2KMT_HFT_2021222.Models;
 using BZ2KMT_HFT_2021222.Repository;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Classes
 {
-    public class PersonLogic
+    public class PersonLogic : IPersonLogic
     {
         IRepository<Person> repository;
         public PersonLogic(IRepository<Person> repository)
@@ -27,12 +28,17 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
         {
             var person = repository.Read(id);
             if (person == null)
-                throw new ArgumentNullException("Car not exists");
-            return person;
+                throw new ArgumentNullException("Person not exists");
+            else
+                return person;
         }
         public void Delete(int id)
         {
-            repository.Delete(id);
+            var person = repository.Read(id);
+            if (person == null)
+                throw new ArgumentNullException($"Person with {id} not exist");
+            else
+                repository.Delete(id);
         }
         public IEnumerable<Person> ReadAll()
         {

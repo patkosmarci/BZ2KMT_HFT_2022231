@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Interfaces
 {
-    internal interface ILoanLogic
+    public interface ILoanLogic
     {
         void Create(Loan item);
         Loan Read(int id);
