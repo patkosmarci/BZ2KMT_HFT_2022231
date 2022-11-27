@@ -1,6 +1,7 @@
 ﻿using BZ2KMT_HFT_2021222.Models;
 using System;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 
 namespace BZ2KMT_HFT_2021222.Repository
 {
@@ -15,9 +16,17 @@ namespace BZ2KMT_HFT_2021222.Repository
         {
             return ctx.Loans.First(t => t.LoanId == id);
         }
-        public override void Update(Loan item)
+        public override void Update(Loan loan)
         {
-            throw new NotImplementedException();
+            var old = Read(loan.LoanId);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(x => x.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(loan));
+                }
+            }
+            ctx.SaveChanges();
         }
     }
 }

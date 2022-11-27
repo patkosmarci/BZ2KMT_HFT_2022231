@@ -19,7 +19,15 @@ namespace BZ2KMT_HFT_2021222.Repository
         }
         public override void Update(Car car)
         {
-
+            var old = Read(car.CarId);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if(prop.GetAccessors().FirstOrDefault(x => x.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(car));
+                }
+            }
+            ctx.SaveChanges();
         }
     }
 }
