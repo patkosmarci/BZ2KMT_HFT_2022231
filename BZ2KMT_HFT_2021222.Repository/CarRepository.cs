@@ -19,7 +19,7 @@ namespace BZ2KMT_HFT_2021222.Repository
         }
         public override void Update(Car car)
         {
-            
+
         }
     }
 }

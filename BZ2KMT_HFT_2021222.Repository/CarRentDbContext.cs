@@ -20,11 +20,11 @@ namespace BZ2KMT_HFT_2021222.Repository
         {
             if (!builder.IsConfigured)
             {
-                string conn = @"Data Source = (LocalDB)\MSSQLLocalDB; " +
-                    @"AttachDbFilename =|DataDirectory|\CarRentDb.mdf; Integrated Security = True; MultipleActiveResultSets = True";
+                //string conn = @"Data Source = (LocalDB)\MSSQLLocalDB; " +
+                //    @"AttachDbFilename =|DataDirectory|\CarRentDb.mdf; Integrated Security = True; MultipleActiveResultSets = True";
 
                 builder
-                    .UseSqlServer(conn)
+                    .UseInMemoryDatabase("database")
                     .UseLazyLoadingProxies();
             }
         }
@@ -90,10 +90,10 @@ namespace BZ2KMT_HFT_2021222.Repository
 
             modelBuilder.Entity<Loan>().HasData(new Loan[]
             {
-                new Loan("1#2021-12-21#3#1#5"),
-                new Loan("2#2021-10-30#2#2#5"),
-                new Loan("3#2019-05-03#5#3#5"),
-                new Loan("4#2000-12-12#10#4#5")
+                new Loan("1#2021-12-21#3#1#128"),
+                new Loan("2#2021-10-30#2#2#212"),
+                new Loan("3#2019-05-03#5#3#50"),
+                new Loan("4#2000-12-12#10#4#98")
             });
 
             modelBuilder.Entity<Person>().HasData(new Person[]
