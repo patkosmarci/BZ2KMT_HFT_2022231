@@ -17,7 +17,7 @@ namespace BZ2KMT_HFT_2021222.Models
         [ForeignKey(nameof(Person))]
         public int PersonId { get; set; }
         [Required]
-        public int RentTimeInDay { get; set; }
+        public int CostInUSD { get; set; }
         public virtual Car Car { get; set; }
         public virtual Person Person { get; set; }
 
@@ -33,7 +33,7 @@ namespace BZ2KMT_HFT_2021222.Models
             RentDate = DateTime.Parse(split[1]);
             CarId = int.Parse(split[2]);
             PersonId = int.Parse(split[3]);
-            RentTimeInDay = int.Parse(split[4]);
+            CostInUSD = int.Parse(split[4]);
         }
     }
 }

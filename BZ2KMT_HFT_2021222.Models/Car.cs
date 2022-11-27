@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BZ2KMT_HFT_2021222.Models
 {
@@ -22,7 +23,9 @@ namespace BZ2KMT_HFT_2021222.Models
         [ForeignKey(nameof(Brand))]
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Person> Persons { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Loan> Loans { get; set; }
 
 

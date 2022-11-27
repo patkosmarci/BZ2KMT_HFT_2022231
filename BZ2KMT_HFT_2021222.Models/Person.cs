@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BZ2KMT_HFT_2021222.Models
 {
@@ -22,7 +23,9 @@ namespace BZ2KMT_HFT_2021222.Models
         public int IdCardNumber { get; set; }
         [Required]
         public int LicenseNumber { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Car> Cars { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Loan> Loans { get; set; }
 
         public Person()

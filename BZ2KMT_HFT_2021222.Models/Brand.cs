@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BZ2KMT_HFT_2021222.Models
 {
@@ -12,6 +13,7 @@ namespace BZ2KMT_HFT_2021222.Models
         [Required]
         [StringLength(50)]
         public string BrandName { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Car> Cars { get; set; }
 
         public Brand()
