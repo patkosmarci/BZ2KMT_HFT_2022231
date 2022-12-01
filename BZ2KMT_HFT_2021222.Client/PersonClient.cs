@@ -12,30 +12,26 @@ namespace BZ2KMT_HFT_2021222.Client
 {
     public class PersonClient
     {
-        PersonLogic personLogic;
-        public PersonClient(PersonLogic personLogic)
+        RestService rest;
+        public PersonClient()
         {
-            this.personLogic = personLogic;
+            rest = new RestService("http://localhost:21067/");
         }
 
         public void ReadAll()
         {
-            var items = personLogic.ReadAll();
-            Console.WriteLine("Id\tName\t\t\tPhone\t\tRented car");
-            foreach (var item in items)
+            List<Person> persons = rest.Get<Person>("person");
+            Console.WriteLine("Id\tName\t\t\tPhone");
+            foreach (var item in persons)
             {
-                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}");
-                foreach (var loan in item.Loans)
-                {
-                    Console.Write($"\t{loan.Car.Brand.BrandName} {loan.Car.Model}\n");
-                }
+                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}\n");
             }
         }
         public void Read()
         {
             Console.Write("Give a person's id:");
             int id = int.Parse(Console.ReadLine());
-            var person = personLogic.Read(id);
+            Person person = rest.Get<Person>(id, "person");
             Console.Write($"{person.PersonId}\t{person.FirstName} {person.LastName}\t\t{person.PhoneNumber}");
             foreach (var loan in person.Loans)
             {
@@ -57,13 +53,20 @@ namespace BZ2KMT_HFT_2021222.Client
             person.IdCardNumber = int.Parse(Console.ReadLine());
             Console.Write("\nEnter license number:");
             person.LicenseNumber = int.Parse(Console.ReadLine());
-            personLogic.Create(person);
+            rest.Post(person, "person");
         }
         public void Update()
         {
-            Console.Write("\nEnter a Person's id to update:");
+            List<Person> persons = rest.Get<Person>("person");
+            Console.WriteLine("Id\tName\t\t\tPhone");
+            foreach (var item in persons)
+            {
+                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}");
+            }
+
+            Console.Write("\nPick a Person's id to update:");
             int id = int.Parse(Console.ReadLine());
-            var person = personLogic.Read(id);
+            Person person = rest.Get<Person>(id, "person");
             Console.Write($"\nEnter first name [old: {person.FirstName}]:");
             person.FirstName = Console.ReadLine();
             Console.Write($"\nEnter last name [old: {person.LastName}]:");
@@ -76,13 +79,20 @@ namespace BZ2KMT_HFT_2021222.Client
             person.IdCardNumber = int.Parse(Console.ReadLine());
             Console.Write($"\nEnter license number [old: {person.LicenseNumber}]:");
             person.LicenseNumber = int.Parse(Console.ReadLine());
-            personLogic.Update(person);
+            rest.Put(person, "person");
         }
         public void Delete()
         {
-            Console.Write("\nPlease give an id to delete:");
+            List<Person> persons = rest.Get<Person>("person");
+            Console.WriteLine("Id\tName\t\t\tPhone");
+            foreach (var item in persons)
+            {
+                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}");
+            }
+
+            Console.Write("\nPlease pick an id to delete:");
             int id = int.Parse(Console.ReadLine());
-            personLogic.Delete(id);
+            rest.Delete(id, "person");
         }
     }
 }

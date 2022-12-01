@@ -2,40 +2,47 @@
 using BZ2KMT_HFT_2021222.Logic.Classes;
 using BZ2KMT_HFT_2021222.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BZ2KMT_HFT_2021222.Client
 {
     public class CarClient
     {
-        CarLogic carLogic;
-        public CarClient(CarLogic carLogic)
+        RestService rest;
+        public CarClient()
         {
-            this.carLogic = carLogic;
+            rest = new RestService("http://localhost:21067/");
         }
 
         public void ReadAll()
         {
-            var items = carLogic.ReadAll();
+            List<Car> cars = rest.Get<Car>("car");
             Console.WriteLine("Id\tName\t\tModel");
-            foreach (var item in items)
+            foreach (var item in cars)
             {
                 Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t\t{item.Model}");
             }
         }
         public void Read()
         {
-            Console.Write("Give a car's id:");
+            Console.Write("\nPick a car's id:");
             int id = int.Parse(Console.ReadLine());
-            var car = carLogic.Read(id);
+            Car car = rest.Get<Car>(id, "car");
             Console.WriteLine("Id\tName\t\tModel");
             Console.WriteLine($"{car.CarId}\t{car.Brand.BrandName}\t\t{car.Model}");
         }
         public void Update()
         {
+            List<Car> cars = rest.Get<Car>("car");
+            Console.WriteLine("Id\tName\t\tModel");
+            foreach (var item in cars)
+            {
+                Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t\t{item.Model}");
+            }
             Console.Write("\nEnter Car's id to update:");
             int id = int.Parse(Console.ReadLine());
-            var car = carLogic.Read(id);
+            Car car = rest.Get<Car>(id, "car");
             Console.Write($"\nNew model name [old: {car.Model}]:");
             car.Model = Console.ReadLine();
             Console.Write($"\nNew type [old: {car.Type}]:");
@@ -44,18 +51,18 @@ namespace BZ2KMT_HFT_2021222.Client
             car.FuelType = Console.ReadLine();
             Console.Write($"\nNew release year [old: {car.ReleaseYear}]:");
             car.ReleaseYear = int.Parse(Console.ReadLine());
-            
-            var brands = carLogic.ReadAll().GroupBy(x => x.Brand).OrderBy(x => x.Key.BrandId);
+
+            List<Brand> brands = rest.Get<Brand>("brand");
 
             Console.WriteLine($"\nPlease choose a new brand from listed above [old: {car.BrandId}:");
 
             foreach (var item in brands)
             {
-                Console.WriteLine($"{item.Key.BrandId}. - {item.Key.BrandName}");
+                Console.WriteLine($"{item.BrandId}. - {item.BrandName}");
             }
 
             car.BrandId = int.Parse(Console.ReadLine());
-            carLogic.Update(car);
+            rest.Put(car, "car");
         }
         public void Create()
         {
@@ -69,24 +76,30 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.Write("\nEnter release year:");
             car.ReleaseYear = int.Parse(Console.ReadLine());
 
-            var brands = carLogic.ReadAll().GroupBy(x => x.Brand).OrderBy(x => x.Key.BrandId);
+            List<Brand> brands = rest.Get<Brand>("brand");
 
             Console.WriteLine("\nPlease choose a brand from listed above:");
 
             foreach (var item in brands)
             {
-                Console.WriteLine($"{item.Key.BrandId}. - {item.Key.BrandName}");
+                Console.WriteLine($"{item.BrandId}. - {item.BrandName}");
             }
 
             car.BrandId = int.Parse(Console.ReadLine());
 
-            carLogic.Create(car);
+            rest.Post(car, "car");
         }
         public void Delete()
         {
+            List<Car> cars = rest.Get<Car>("car");
+            Console.WriteLine("Id\tName\t\tModel");
+            foreach (var item in cars)
+            {
+                Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t\t{item.Model}");
+            }
             Console.Write("\nPlease give an id to delete:");
             int id = int.Parse(Console.ReadLine());
-            carLogic.Delete(id);
+            rest.Delete(id, "car");
         }
     }
 }

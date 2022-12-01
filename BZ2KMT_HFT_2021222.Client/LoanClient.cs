@@ -3,34 +3,36 @@ using BZ2KMT_HFT_2021222.Logic.Classes;
 using BZ2KMT_HFT_2021222.Models;
 using BZ2KMT_HFT_2021222.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BZ2KMT_HFT_2021222.Client
 {
     public class LoanClient
     {
-        LoanLogic loanLogic;
+        RestService rest;
 
-        public LoanClient(LoanLogic loanLogic)
+        public LoanClient()
         {
-            this.loanLogic = loanLogic;
+            rest = new RestService("http://localhost:21067/");
         }
 
         public void ReadAll()
         {
-            var items = loanLogic.ReadAll();
+            List<Loan> loans = rest.Get<Loan>("loan");
             Console.WriteLine("Id\tRental\t\tRented car\tRent date");
-            foreach (var item in items)
+            foreach (var item in loans)
             {
-                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t{item.Car.Brand.BrandName} " +
-                    $"{item.Car.Model}\t{item.RentDate.ToShortDateString()}");
+                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t" +
+                    $"{item.Car.Model}\t\t{item.RentDate.ToShortDateString()}\n" +
+                    $"Cost of rent in USD: {item.CostInUSD}$\n");
             }
         }
         public void Read()
         {
             Console.Write("Give a loan's id:");
             int id = int.Parse(Console.ReadLine());
-            var loan = loanLogic.Read(id);
+            Loan loan = rest.Get<Loan>(id, "loan");
             Console.WriteLine("Id\tRental\t\tRented car\tRent date");
             Console.WriteLine($"{loan.LoanId}\t{loan.Person.FirstName} {loan.Person.LastName}\t{loan.Car.Brand.BrandName} " +
                     $"{loan.Car.Model}\t{loan.RentDate.ToShortDateString()}");
@@ -42,66 +44,84 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.Write("\nEnter the cost of the rent:");
             loan.CostInUSD = int.Parse(Console.ReadLine());
 
-            var cars = loanLogic.ReadAll().GroupBy(x => x.Car).OrderBy(x => x.Key.CarId);
+            List<Car> cars = rest.Get<Car>("car");
 
-            Console.WriteLine("\nPlease choose a brand from listed above:");
+            Console.WriteLine("\nPlease choose a car from listed above:");
 
             foreach (var item in cars)
             {
-                Console.WriteLine($"{item.Key.CarId}. - {item.Key.Model}");
+                Console.WriteLine($"{item.CarId}. - {item.Model}");
             }
 
             loan.CarId = int.Parse(Console.ReadLine());
 
-            var persons = loanLogic.ReadAll().GroupBy(x => x.Person).OrderBy(x => x.Key.PersonId);
+            List<Person> persons = rest.Get<Person>("person");
 
             Console.WriteLine("\nPlease choose a brand from listed above:");
 
             foreach (var item in persons)
             {
-                Console.WriteLine($"{item.Key.PersonId}. - {item.Key.FirstName} {item.Key.LastName}");
+                Console.WriteLine($"{item.PersonId}. - {item.FirstName} {item.LastName}");
             }
 
             loan.PersonId = int.Parse(Console.ReadLine());
-            loanLogic.Create(loan);
+            rest.Post(loan, "loan");
         }
         public void Update()
         {
-            Console.Write("\nEnter Loan's id to update:");
+            List<Loan> loans = rest.Get<Loan>("loan");
+            Console.WriteLine("Id\tRental\t\tRented car\tRent date");
+            foreach (var item in loans)
+            {
+                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t" +
+                    $"{item.Car.Model}\t\t{item.RentDate.ToShortDateString()}\n" +
+                    $"Cost of rent in USD: {item.CostInUSD}$\n");
+            }
+
+            Console.Write("\nPick a Loan's id to update:");
             int id = int.Parse(Console.ReadLine());
-            var loan = loanLogic.Read(id);
+            Loan loan = rest.Get<Loan>(id, "loan");
             loan.RentDate = DateTime.Now;
             Console.Write($"\nEnter the cost of the rent [old: {loan.CostInUSD}]:");
             loan.CostInUSD = int.Parse(Console.ReadLine());
 
-            var cars = loanLogic.ReadAll().GroupBy(x => x.Car).OrderBy(x => x.Key.CarId);
+            List<Car> cars = rest.Get<Car>("car");
 
             Console.WriteLine("\nPlease choose a brand from listed above:");
 
             foreach (var item in cars)
             {
-                Console.WriteLine($"{item.Key.CarId}. - {item.Key.Model}");
+                Console.WriteLine($"{item.CarId}. - {item.Model}");
             }
 
             loan.CarId = int.Parse(Console.ReadLine());
 
-            var persons = loanLogic.ReadAll().GroupBy(x => x.Person).OrderBy(x => x.Key.PersonId);
+            List<Person> persons = rest.Get<Person>("person");
 
-            Console.WriteLine("\nPlease choose a brand from listed above:");
+            Console.WriteLine("\nPlease choose a person from listed above:");
 
             foreach (var item in persons)
             {
-                Console.WriteLine($"{item.Key.PersonId}. - {item.Key.FirstName} {item.Key.LastName}");
+                Console.WriteLine($"{item.PersonId}. - {item.FirstName} {item.LastName}");
             }
 
             loan.PersonId = int.Parse(Console.ReadLine());
-            loanLogic.Update(loan);
+            rest.Put(loan, "loan");
         }
         public void Delete()
         {
-            Console.Write("\nPlease give an id to delete:");
+            List<Loan> loans = rest.Get<Loan>("loan");
+            Console.WriteLine("Id\tRental\t\tRented car\tRent date");
+            foreach (var item in loans)
+            {
+                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t" +
+                    $"{item.Car.Model}\t\t{item.RentDate.ToShortDateString()}\n" +
+                    $"Cost of rent in USD: {item.CostInUSD}$\n");
+            }
+
+            Console.Write("\nPlease pick an id to delete:");
             int id = int.Parse(Console.ReadLine());
-            loanLogic.Delete(id);
+            rest.Delete(id, "loan");
         }
     }
 }

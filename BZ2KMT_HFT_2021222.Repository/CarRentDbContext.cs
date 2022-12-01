@@ -20,12 +20,11 @@ namespace BZ2KMT_HFT_2021222.Repository
         {
             if (!builder.IsConfigured)
             {
-               string conn = @"Data Source = (LocalDB)\MSSQLLocalDB; " +
-                   @"AttachDbFilename =|DataDirectory|\CarRentDb.mdf; Integrated Security = True; MultipleActiveResultSets = True";
+               //string conn = @"Data Source = (LocalDB)\MSSQLLocalDB; " +
+               //    @"AttachDbFilename =|DataDirectory|\CarRentDb.mdf; Integrated Security = True; MultipleActiveResultSets = True";
 
                 builder
-                    //.UseInMemoryDatabase("database")
-                    .UseSqlServer(conn)
+                    .UseInMemoryDatabase("database")
                     .UseLazyLoadingProxies();
             }
         }
