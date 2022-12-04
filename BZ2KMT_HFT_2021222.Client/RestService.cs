@@ -15,11 +15,11 @@ namespace BZ2KMT_HFT_2021222.Client
 
         public RestService(string baseurl, string pingableEndpoint = "swagger")
         {
-            bool isOk = false;
-            do
-            {
-                isOk = Ping(baseurl + pingableEndpoint);
-            } while (isOk == false);
+            //bool isOk = false;
+            //do
+            //{
+            //    isOk = Ping(baseurl + "/brand");
+            //} while (isOk == false);
             Init(baseurl);
         }
 

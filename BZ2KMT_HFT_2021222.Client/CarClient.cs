@@ -10,9 +10,9 @@ namespace BZ2KMT_HFT_2021222.Client
     public class CarClient
     {
         RestService rest;
-        public CarClient()
+        public CarClient(string url)
         {
-            rest = new RestService("http://localhost:21067/");
+            rest = new RestService(url);
         }
 
         public void ReadAll()

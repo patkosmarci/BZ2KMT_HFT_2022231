@@ -15,6 +15,7 @@ namespace BZ2KMT_HFT_2021222.Client
         static BrandClient brandClient;
         static LoanClient loanClient;
         static PersonClient personClient;
+        static StatClient statClient;
         static void List(string entity)
         {
             try
@@ -113,13 +114,35 @@ namespace BZ2KMT_HFT_2021222.Client
             }
             Console.ReadLine();
         }
+        static void Stat(string entity)
+        {
+            try
+            {
+                if (entity == "AvgCostByPerson")
+                    statClient.AvgCostByPerson();
+                else if (entity == "BrandsWithCarReleaseDescending")
+                    statClient.BrandsWithCarReleaseDescending();
+                else if (entity == "MaxCostForLoan")
+                    statClient.MaxCostForLoan();
+                else if (entity == "PersonWithMostLoans")
+                    statClient.PersonWithMostLoans();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.ReadLine();
+        }
 
         static void Main(string[] args)
         {
-            carClient = new CarClient();
-            brandClient = new BrandClient();
-            loanClient = new LoanClient();
-            personClient = new PersonClient();
+            string url = "http://localhost:40003/";
+            carClient = new CarClient(url);
+            brandClient = new BrandClient(url);
+            loanClient = new LoanClient(url);
+            personClient = new PersonClient(url);
+            statClient = new StatClient(url);
 
             var carSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Car"))
@@ -153,12 +176,21 @@ namespace BZ2KMT_HFT_2021222.Client
                 .Add("Update", () => Update("Person"))
                 .Add("Exit", ConsoleMenu.Close);
 
+            var statSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("AverageCostByPerson", () => Stat("AvgCostByPerson"))
+                .Add("BrandsWithCarReleaseDescending", () => Stat("BrandsWithCarReleaseDescending"))
+                .Add("MaxCostForLoan", () => Stat("MaxCostForLoan"))
+                .Add("PersonWithMostLoans", () => Stat("PersonWithMostLoans"))
+                .Add("", () => Stat(""))
+                .Add("Exit", ConsoleMenu.Close);
+
 
             var menu = new ConsoleMenu(args, level: 0)
                 .Add("Cars", () => carSubMenu.Show())
                 .Add("Brand", () => brandSubMenu.Show())
                 .Add("Loan", () => loanSubMenu.Show())
                 .Add("Person", () => personSubMenu.Show())
+                .Add("Stat", () => statSubMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();

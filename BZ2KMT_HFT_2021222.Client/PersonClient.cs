@@ -13,9 +13,9 @@ namespace BZ2KMT_HFT_2021222.Client
     public class PersonClient
     {
         RestService rest;
-        public PersonClient()
+        public PersonClient(string url)
         {
-            rest = new RestService("http://localhost:21067/");
+            rest = new RestService(url);
         }
 
         public void ReadAll()

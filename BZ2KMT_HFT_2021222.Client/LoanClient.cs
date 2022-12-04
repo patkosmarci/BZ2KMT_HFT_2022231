@@ -12,9 +12,9 @@ namespace BZ2KMT_HFT_2021222.Client
     {
         RestService rest;
 
-        public LoanClient()
+        public LoanClient(string url)
         {
-            rest = new RestService("http://localhost:21067/");
+            rest = new RestService(url);
         }
 
         public void ReadAll()
