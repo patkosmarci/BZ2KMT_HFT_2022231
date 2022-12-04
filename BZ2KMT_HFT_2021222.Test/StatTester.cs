@@ -23,5 +23,25 @@ namespace BZ2KMT_HFT_2021222.Test
             mockPersonRepository = new Mock<IRepository<Person>>();
 
         }
+        [Test]
+        public void AvgCostByPersonTest()
+        {
+
+        }
+        [Test]
+        public void MaxCostForLoan()
+        {
+
+        }
+        [Test]
+        public void PersonWithMostLoans()
+        {
+
+        }
+        [Test]
+        public void BrandsWithCarReleaseDescending()
+        {
+
+        }
     }
 }
