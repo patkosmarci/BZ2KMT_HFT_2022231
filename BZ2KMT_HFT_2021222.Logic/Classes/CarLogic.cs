@@ -17,10 +17,12 @@ namespace BZ2KMT_HFT_2021222.Logic
 
         public void Create(Car car)
         {
-            if (car == null)
-                throw new ArgumentNullException("You must add a car");
-            else
-                repository.Create(car);
+            if (car.ReleaseYear > DateTime.Now.Year)
+            {
+                throw new ArgumentException("Release year must be between 1900 and 2100");
+            }
+            
+            repository.Create(car);
         }
         public Car Read(int id)
         {

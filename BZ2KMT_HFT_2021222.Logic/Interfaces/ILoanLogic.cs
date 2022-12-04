@@ -1,4 +1,5 @@
-﻿using BZ2KMT_HFT_2021222.Models;
+﻿using BZ2KMT_HFT_2021222.Logic.Classes;
+using BZ2KMT_HFT_2021222.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

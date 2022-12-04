@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "BZ2KMT_HFT_2021222.Logic": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:59032;http://localhost:59033"
+    }
+  }
+}

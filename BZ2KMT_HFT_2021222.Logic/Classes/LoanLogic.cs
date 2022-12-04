@@ -20,10 +20,10 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
 
         public void Create(Loan loan)
         {
-            if(loan == null)
-                throw new ArgumentNullException("You must add a rental");
-            else
-                repository.Create(loan);
+            if(loan.CostInUSD <= 0)
+                throw new ArgumentException("You must need to set a cost");
+            
+            repository.Create(loan);
         }
         public Loan Read(int id)
         {
@@ -49,5 +49,7 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
         {
             repository.Update(loan);
         }
+        
     }
+    
 }
