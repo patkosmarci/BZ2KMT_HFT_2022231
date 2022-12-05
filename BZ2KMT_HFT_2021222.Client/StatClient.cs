@@ -24,13 +24,26 @@ namespace BZ2KMT_HFT_2021222.Client
             List<AvgCostByPerson> avgCost = rest.Get<AvgCostByPerson>("/avgcostbyperson");
             List<Person> persons = rest.Get<Person>("/person");
 
-            Console.WriteLine("Full name\tAverage cost");
+            Console.WriteLine("Full name\t\tAverage cost");
             foreach (var item in avgCost)
             {
                 foreach (var person in persons)
                 {
-                    if(item.PersonId == person.PersonId)
-                        Console.WriteLine($"{person.FirstName + " " + person.LastName}\t{item.AvgCost}$");
+                    if((person.FirstName + " " + person.LastName).Length >= 16)
+                    {
+                        if(item.PersonId == person.PersonId)
+                            Console.WriteLine($"{person.FirstName + " " + person.LastName}\t{Math.Round((double)item.AvgCost, 0)}$");
+                    }
+                    else if((person.FirstName + " " + person.LastName).Length < 8)
+                    {
+                        if (item.PersonId == person.PersonId)
+                            Console.WriteLine($"{person.FirstName + " " + person.LastName}\t\t\t{Math.Round((double)item.AvgCost, 0)}$");
+                    }
+                    else
+                    {
+                        if (item.PersonId == person.PersonId)
+                            Console.WriteLine($"{person.FirstName + " " + person.LastName}\t\t{Math.Round((double)item.AvgCost, 0)}$");
+                    }
                 }
             }
         }

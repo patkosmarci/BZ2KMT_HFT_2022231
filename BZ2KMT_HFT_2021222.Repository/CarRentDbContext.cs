@@ -110,7 +110,7 @@ namespace BZ2KMT_HFT_2021222.Repository
             {
                 new Person("1#Walter#White#Albaquerque 303699 Pizza Street 42#+35234124123567#12341234#51234151"),
                 new Person("2#Horváth#Benjámin#Budapest 1131 Kőfejtő utca 32#+363082341249#84131484#5154245"),
-                new Person("3#John#Doe#Kistarcs 4851 Eger utca 48#+36704229123#86345692#3521352"),
+                new Person("3#John#Doe#Kistarcsa 4851 Eger utca 48#+36704229123#86345692#3521352"),
                 new Person("4#Emily#White#Albaquerque 303699 Pizza Street#+352381248213#84184823#7462937"),
                 new Person("5#Bob#Big#Eger 2313 Kis utca#+3670#48182847#8272425"),
                 new Person("6#Kiss#Benő#Veszprém 3233 Kanyar út#+362091828984#75664843#9281749"),

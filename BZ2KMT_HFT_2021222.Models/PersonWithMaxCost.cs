@@ -8,6 +8,17 @@ namespace BZ2KMT_HFT_2021222.Models
 {
     public class PersonWithMaxCost
     {
+        public PersonWithMaxCost(string fullName, int maxCost)
+        {
+            FullName = fullName;
+            MaxCost = maxCost;
+        }
+
+        public PersonWithMaxCost()
+        {
+
+        }
+
         public string FullName { get; set; }
         public int MaxCost { get; set; }
         public override bool Equals(object obj)

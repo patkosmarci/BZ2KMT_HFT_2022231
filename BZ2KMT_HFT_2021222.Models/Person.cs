@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -46,6 +47,26 @@ namespace BZ2KMT_HFT_2021222.Models
             LicenseNumber = int.Parse(split[6]);
             Cars = new HashSet<Car>();
             Loans = new HashSet<Loan>();
+        }
+
+        public override bool Equals(object obj)
+        {
+            Person b = obj as Person;
+            if (b == null)
+                return false;
+            else
+                return PersonId == b.PersonId &&
+                    FirstName == b.FirstName &&
+                    LastName == b.LastName &&
+                    Address == b.Address &&
+                    PhoneNumber == b.PhoneNumber &&
+                    IdCardNumber == b.IdCardNumber &&
+                    LicenseNumber == b.LicenseNumber;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(PersonId, FirstName, LastName, Address, PhoneNumber, IdCardNumber, LicenseNumber);
         }
     }
 }

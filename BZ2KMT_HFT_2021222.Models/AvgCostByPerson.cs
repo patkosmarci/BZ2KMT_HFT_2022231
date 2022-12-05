@@ -8,6 +8,16 @@ namespace BZ2KMT_HFT_2021222.Models
 {
     public class AvgCostByPerson
     {
+        public AvgCostByPerson(int personId, double? avgCost)
+        {
+            PersonId = personId;
+            AvgCost = avgCost;
+        }
+        public AvgCostByPerson()
+        {
+
+        }
+
         public int PersonId { get; set; }
         public double? AvgCost { get; set; }
 

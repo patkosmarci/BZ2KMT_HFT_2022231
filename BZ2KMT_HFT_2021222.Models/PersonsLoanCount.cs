@@ -8,6 +8,17 @@ namespace BZ2KMT_HFT_2021222.Models
 {
     public class PersonsLoanCount
     {
+        public PersonsLoanCount(string fullName, int loanCount)
+        {
+            FullName = fullName;
+            LoanCount = loanCount;
+        }
+
+        public PersonsLoanCount()
+        {
+
+        }
+
         public string FullName { get; set; }
         public int LoanCount { get; set; }
 

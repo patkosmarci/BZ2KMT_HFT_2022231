@@ -86,6 +86,17 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
     }
     public class BrandsDescending
     {
+        public BrandsDescending(string brandName, double? avgYear)
+        {
+            BrandName = brandName;
+            AvgYear = avgYear;
+        }
+
+        public BrandsDescending()
+        {
+
+        }
+
         public string BrandName { get; set; }
         public double? AvgYear { get; set; }
 
