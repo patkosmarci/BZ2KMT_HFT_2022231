@@ -4,6 +4,7 @@ using BZ2KMT_HFT_2021222.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,41 +21,54 @@ namespace BZ2KMT_HFT_2021222.Client
 
         public void AvgCostByPerson()
         {
-            List<AvgCostByPerson> avgCost = rest.Get<AvgCostByPerson>("stat/avgcostbyperson");
+            List<AvgCostByPerson> avgCost = rest.Get<AvgCostByPerson>("/avgcostbyperson");
+            List<Person> persons = rest.Get<Person>("/person");
 
             Console.WriteLine("Full name\tAverage cost");
             foreach (var item in avgCost)
             {
-                Console.WriteLine($"{item.RentalName}\t{item.AvgCost}$");
+                foreach (var person in persons)
+                {
+                    if(item.PersonId == person.PersonId)
+                        Console.WriteLine($"{person.FirstName + " " + person.LastName}\t{item.AvgCost}$");
+                }
             }
         }
         public void BrandsWithCarReleaseDescending()
         {
-            List<Brand> brands = rest.Get<Brand>("stat/BrandsWithCarReleaseDescending");
+            List<BrandsDescending> brands = rest.Get<BrandsDescending>("/brandswithcarreleasedescending");
 
-            Console.Write("\tBrands");
+            Console.Write("\nBrands\tYear\n");
 
             foreach (var item in brands)
             {
-                Console.WriteLine($"{item.BrandId}\t{item.BrandName}");
+                Console.WriteLine($"{item.BrandName}\t{item.AvgYear}");
             }
         }
         public void MaxCostForLoan()
         {
-            var objects = rest.Get<object>("stat/MaxCostForLoan");
-            Console.WriteLine("Max cost for loan:");
-            foreach (var item in objects)
+            List<PersonWithMaxCost> max = rest.Get<PersonWithMaxCost>("/maxcostforloan");
+            foreach (var item in max)
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"Name: {item.FullName} Max cost: {item.MaxCost}");
             }
         }
         public void PersonWithMostLoans()
         {
-            var person = rest.Get<Person>("stat/PersonWithMostLoans");
+            var person = rest.Get<Person>("/personswithmostloans");
             Console.WriteLine("Person with most loans:");
             foreach (var item in person)
             {
-                Console.WriteLine(item.FirstName + item.LastName);
+                Console.WriteLine(item.FirstName + " " + item.LastName);
+            }
+        }
+        public void PersonsLoanAccount()
+        {
+            List<PersonsLoanCount> personLoans = rest.Get<PersonsLoanCount>("/personsloancount");
+            Console.WriteLine("Full name\tLoan count");
+            foreach (var item in personLoans)
+            {
+                Console.WriteLine($"{item.FullName}\t{item.LoanCount}");
             }
         }
     }

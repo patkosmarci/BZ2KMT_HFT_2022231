@@ -33,6 +33,7 @@ namespace BZ2KMT_HFT_2021222.Endpoint
             services.AddTransient<IBrandLogic, BrandLogic>();
             services.AddTransient<ILoanLogic, LoanLogic>();
             services.AddTransient<IPersonLogic, PersonLogic>();
+            services.AddTransient<IStatLogic, StatLogic>();
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

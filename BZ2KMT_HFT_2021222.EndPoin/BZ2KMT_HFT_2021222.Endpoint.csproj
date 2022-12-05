@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BZ2KMT_HFT_2021222.Logic\BZ2KMT_HFT_2021222.Logic.csproj" />
+    <ProjectReference Include="..\BZ2KMT_HFT_2021222.Models\BZ2KMT_HFT_2021222.Models.csproj" />
   </ItemGroup>
 
 </Project>

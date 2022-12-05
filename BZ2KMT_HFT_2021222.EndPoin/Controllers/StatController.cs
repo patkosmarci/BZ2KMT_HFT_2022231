@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace BZ2KMT_HFT_2021222.Endpoint.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class StatController : ControllerBase
     {
@@ -20,26 +20,31 @@ namespace BZ2KMT_HFT_2021222.Endpoint.Controllers
             this.logic = logic;
         }
 
-        // GET: api/<StatController>
-        [HttpGet]
+        // GET: api/<StatController
+        [HttpGet("/avgcostbyperson")]
         public IEnumerable<AvgCostByPerson> AvgCostByPerson()
         {
             return logic.AvgCostByPerson();
         }
-        [HttpGet]
-        public IEnumerable<Brand> BrandsWithCarReleaseDescending()
+        [HttpGet("/brandswithcarreleasedescending")]
+        public IEnumerable<BrandsDescending> BrandsWithCarReleaseDescending()
         {
             return logic.BrandsWithCarReleaseDescending();
         }
-        [HttpGet]
-        public IEnumerable<object> MaxCostForLoan()
+        [HttpGet("/maxcostforloan")]
+        public IEnumerable<PersonWithMaxCost> MaxCostForLoan()
         {
             return logic.MaxCostForLoan();
         }
-        [HttpGet]
+        [HttpGet("/personswithmostloans")]
         public IEnumerable<Person> PersonsWithMostLoans()
         {
             return logic.PersonWithMostLoans();
+        }
+        [HttpGet("/personsloancount")]
+        public IEnumerable<PersonsLoanCount> PersonsLoanCount()
+        {
+            return logic.PersonsLoanCount();
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Logic.Classes
 {
-    public class StatLogic
+    public class StatLogic : IStatLogic
     {
         IRepository<Loan> loanRepository;
         IRepository<Person> personRepository;
@@ -26,26 +26,28 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
         public IEnumerable<AvgCostByPerson> AvgCostByPerson()
         {
             var loans = loanRepository.ReadAll().ToList();
+            var persons = personRepository.ReadAll().ToList();
 
-            return from x in loans
-                   group x by x.Person.PersonId into g
-                   select new AvgCostByPerson
-                   {
-                       Id = g.Key,
-                       RentalName = g.Select(t => t.Person.FirstName + " " + t.Person.LastName).First(),
-                       AvgCost = g.Average(t => t.CostInUSD)
-                   };
+            var result = from x in loans
+                         group x by x.Person.PersonId into g
+                         select new AvgCostByPerson
+                         {
+                             PersonId = g.Key,
+                             AvgCost = g.Average(x => x.CostInUSD),
+                         };
+
+            return result;
         }
-        public IEnumerable<object> MaxCostForLoan()
+        public IEnumerable<PersonWithMaxCost> MaxCostForLoan()
         {
             var loans = loanRepository.ReadAll().ToList();
 
             return from x in loans
-                   group x by x.Person.PersonId into g
-                   select new
+                   group x by x.Person into g
+                   select new PersonWithMaxCost
                    {
-                       PersonId = g.Key,
-                       MaxCost = g.Max(t => t.CostInUSD)
+                       FullName = g.Key.FirstName + " " + g.Key.LastName,
+                       MaxCost = g.Key.Loans.Max(t => t.CostInUSD)
                    };
                     
         }
@@ -57,11 +59,50 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
                    orderby x.Loans.Count descending
                    select x).Take(1);
         }
-        public IEnumerable<Brand> BrandsWithCarReleaseDescending()
+        public IEnumerable<BrandsDescending> BrandsWithCarReleaseDescending()
         {
             var brands = brandRepository.ReadAll().ToList();
 
-            return brands.OrderByDescending(x => x.Cars.Select(t => t.ReleaseYear));
+            var result = from x in brands
+                   select new BrandsDescending
+                   {
+                       BrandName = x.BrandName,
+                       AvgYear = x.Cars.Average(x => x.ReleaseYear)
+                   };
+
+            return result.OrderByDescending(t => t.AvgYear);
+        }
+        public IEnumerable<PersonsLoanCount> PersonsLoanCount()
+        {
+            var persons = personRepository.ReadAll().ToList();
+
+            return from x in persons
+                   select new PersonsLoanCount
+                   {
+                       FullName = x.FirstName + " " + x.LastName,
+                       LoanCount = x.Loans.Count
+                   };
+        }
+    }
+    public class BrandsDescending
+    {
+        public string BrandName { get; set; }
+        public double? AvgYear { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            BrandsDescending b = obj as BrandsDescending;
+            if (b == null)
+                return false;
+            else
+            {
+                return BrandName == b.BrandName && AvgYear == b.AvgYear;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(BrandName, AvgYear);
         }
     }
 }

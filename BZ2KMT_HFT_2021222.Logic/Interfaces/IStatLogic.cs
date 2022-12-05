@@ -1,4 +1,5 @@
-﻿using BZ2KMT_HFT_2021222.Models;
+﻿using BZ2KMT_HFT_2021222.Logic.Classes;
+using BZ2KMT_HFT_2021222.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace BZ2KMT_HFT_2021222.Logic.Interfaces
     public interface IStatLogic
     {
         public IEnumerable<AvgCostByPerson> AvgCostByPerson();
-        public IEnumerable<Person> PersonsInOrderByLoans();
-        public IEnumerable<object> MaxCostForLoan();
+        public IEnumerable<PersonWithMaxCost> MaxCostForLoan();
         public IEnumerable<Person> PersonWithMostLoans();
-        public IEnumerable<Brand> BrandsWithCarReleaseDescending();
+        public IEnumerable<BrandsDescending> BrandsWithCarReleaseDescending();
+        public IEnumerable<PersonsLoanCount> PersonsLoanCount();
     }
 }

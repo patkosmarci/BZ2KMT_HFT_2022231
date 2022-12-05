@@ -93,15 +93,28 @@ namespace BZ2KMT_HFT_2021222.Repository
                 new Loan("1#2021-12-21#3#1#128"),
                 new Loan("2#2021-10-30#2#2#212"),
                 new Loan("3#2019-05-03#5#3#50"),
-                new Loan("4#2000-12-12#10#4#98")
+                new Loan("4#2011-07-12#4#4#98"),
+                new Loan("5#2000-12-22#10#4#330"),
+                new Loan("6#2002-02-28#7#5#402"),
+                new Loan("7#2021-08-11#9#7#900"),
+                new Loan("8#2020-06-19#2#6#120"),
+                new Loan("9#2018-11-03#1#6#295"),
+                new Loan("10#2001-02-23#5#5#500"),
+                new Loan("11#2003-01-21#6#5#870"),
+                new Loan("12#2022-08-05#5#2#240"),
+                new Loan("13#1998-10-09#9#4#440"),
+                new Loan("14#2012-09-03#8#6#500")
             });
 
             modelBuilder.Entity<Person>().HasData(new Person[]
             {
-                new Person("1#Walter#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
-                new Person("2#Horváth#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
-                new Person("3#Benjámin#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151"),
-                new Person("4#Valami#White#Albaquerque 303699 Pizza Street#+35234124123567#12341234#51234151")
+                new Person("1#Walter#White#Albaquerque 303699 Pizza Street 42#+35234124123567#12341234#51234151"),
+                new Person("2#Horváth#Benjámin#Budapest 1131 Kőfejtő utca 32#+363082341249#84131484#5154245"),
+                new Person("3#John#Doe#Kistarcs 4851 Eger utca 48#+36704229123#86345692#3521352"),
+                new Person("4#Emily#White#Albaquerque 303699 Pizza Street#+352381248213#84184823#7462937"),
+                new Person("5#Bob#Big#Eger 2313 Kis utca#+3670#48182847#8272425"),
+                new Person("6#Kiss#Benő#Veszprém 3233 Kanyar út#+362091828984#75664843#9281749"),
+                new Person("7#Nagy#Ákos#Sopron 9819 Debreceni út#+36308474882#84898942#1847263")
             });
         }
     }

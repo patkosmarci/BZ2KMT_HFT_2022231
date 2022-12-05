@@ -6,28 +6,25 @@ using System.Threading.Tasks;
 
 namespace BZ2KMT_HFT_2021222.Models
 {
-    public class AvgCostByPerson
+    public class PersonsLoanCount
     {
-        public int PersonId { get; set; }
-        public double? AvgCost { get; set; }
+        public string FullName { get; set; }
+        public int LoanCount { get; set; }
 
         public override bool Equals(object obj)
         {
-            AvgCostByPerson b = obj as AvgCostByPerson;
+            PersonsLoanCount b = obj as PersonsLoanCount;
             if (b == null)
-            {
                 return false;
-            }
             else
             {
-                return this.PersonId == b.PersonId &&
-                    this.AvgCost == b.AvgCost;
+                return FullName == b.FullName && LoanCount == b.LoanCount;
             }
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.PersonId, this.AvgCost);
+            return HashCode.Combine(FullName, LoanCount);
         }
     }
 }

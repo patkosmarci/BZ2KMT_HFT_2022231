@@ -126,6 +126,8 @@ namespace BZ2KMT_HFT_2021222.Client
                     statClient.MaxCostForLoan();
                 else if (entity == "PersonWithMostLoans")
                     statClient.PersonWithMostLoans();
+                else if (entity == "PersonsLoanCount")
+                    statClient.PersonsLoanAccount();
             }
             catch (Exception ex)
             {
@@ -179,9 +181,9 @@ namespace BZ2KMT_HFT_2021222.Client
             var statSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("AverageCostByPerson", () => Stat("AvgCostByPerson"))
                 .Add("BrandsWithCarReleaseDescending", () => Stat("BrandsWithCarReleaseDescending"))
-                .Add("MaxCostForLoan", () => Stat("MaxCostForLoan"))
+                .Add("MaxCostForPerson", () => Stat("MaxCostForLoan"))
                 .Add("PersonWithMostLoans", () => Stat("PersonWithMostLoans"))
-                .Add("", () => Stat(""))
+                .Add("PersonsLoanCount", () => Stat("PersonsLoanCount"))
                 .Add("Exit", ConsoleMenu.Close);
 
 
