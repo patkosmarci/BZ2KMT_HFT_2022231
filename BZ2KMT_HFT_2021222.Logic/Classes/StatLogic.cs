@@ -55,9 +55,11 @@ namespace BZ2KMT_HFT_2021222.Logic.Classes
         {
             var persons = personRepository.ReadAll().ToList();
 
-            return (from x in persons
-                   orderby x.Loans.Count descending
-                   select x).Take(1);
+            var person = (from x in persons
+                          orderby x.Loans.Count descending
+                          select x).Take(1);
+
+            return person;
         }
         public IEnumerable<BrandsDescending> BrandsWithCarReleaseDescending()
         {

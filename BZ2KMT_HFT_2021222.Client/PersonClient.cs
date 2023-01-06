@@ -24,7 +24,7 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Id\tName\t\t\tPhone");
             foreach (var item in persons)
             {
-                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}\n");
+                WriteToConsole(item);
             }
         }
         public void Read()
@@ -32,7 +32,8 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.Write("Give a person's id:");
             int id = int.Parse(Console.ReadLine());
             Person person = rest.Get<Person>(id, "person");
-            Console.Write($"{person.PersonId}\t{person.FirstName} {person.LastName}\t\t{person.PhoneNumber}");
+            WriteToConsole(person);
+            Console.WriteLine("Loans:");
             foreach (var loan in person.Loans)
             {
                 Console.Write($"\t{loan.Car.Brand.BrandName} {loan.Car.Model}\n");
@@ -61,7 +62,7 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Id\tName\t\t\tPhone");
             foreach (var item in persons)
             {
-                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}");
+                WriteToConsole(item);
             }
 
             Console.Write("\nPick a Person's id to update:");
@@ -87,12 +88,21 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Id\tName\t\t\tPhone");
             foreach (var item in persons)
             {
-                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}");
+                WriteToConsole(item);
             }
 
             Console.Write("\nPlease pick an id to delete:");
             int id = int.Parse(Console.ReadLine());
             rest.Delete(id, "person");
+        }
+        public void WriteToConsole(Person item)
+        {
+            if(item.FirstName.Length + item.LastName.Length < 7)
+                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t\t{item.PhoneNumber}\n");
+            else if(item.FirstName.Length + item.LastName.Length >= 15)
+                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t{item.PhoneNumber}\n");
+            else
+                Console.Write($"{item.PersonId}\t{item.FirstName} {item.LastName}\t\t{item.PhoneNumber}\n");
         }
     }
 }

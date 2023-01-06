@@ -51,11 +51,11 @@ namespace BZ2KMT_HFT_2021222.Client
         {
             List<BrandsDescending> brands = rest.Get<BrandsDescending>("/brandswithcarreleasedescending");
 
-            Console.Write("\nBrands\tYear\n");
+            Console.Write("\nBrands\t\tYear\n");
 
             foreach (var item in brands)
             {
-                Console.WriteLine($"{item.BrandName}\t{item.AvgYear}");
+                Console.WriteLine($"{item.BrandName}{(item.BrandName.Length > 7 ? "\t" : "")}\t{item.AvgYear}");
             }
         }
         public void MaxCostForLoan()
@@ -63,7 +63,7 @@ namespace BZ2KMT_HFT_2021222.Client
             List<PersonWithMaxCost> max = rest.Get<PersonWithMaxCost>("/maxcostforloan");
             foreach (var item in max)
             {
-                Console.WriteLine($"Name: {item.FullName} Max cost: {item.MaxCost}");
+                Console.WriteLine($"Name: {item.FullName}\n\tMax cost: {item.MaxCost}");
             }
         }
         public void PersonWithMostLoans()
@@ -72,16 +72,21 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Person with most loans:");
             foreach (var item in person)
             {
-                Console.WriteLine(item.FirstName + " " + item.LastName);
+                Console.WriteLine(item.FirstName + " " + item.LastName + " Loans count: " + item.Loans.Count);
             }
         }
         public void PersonsLoanAccount()
         {
             List<PersonsLoanCount> personLoans = rest.Get<PersonsLoanCount>("/personsloancount");
-            Console.WriteLine("Full name\tLoan count");
+            Console.WriteLine("Full name\t\tLoan count");
             foreach (var item in personLoans)
             {
-                Console.WriteLine($"{item.FullName}\t{item.LoanCount}");
+                if(item.FullName.Length > 15)
+                    Console.WriteLine($"{item.FullName}\t{item.LoanCount}");
+                else if(item.FullName.Length < 8)
+                    Console.WriteLine($"{item.FullName}\t\t\t{item.LoanCount}");
+                else
+                    Console.WriteLine($"{item.FullName}\t\t{item.LoanCount}");
             }
         }
     }

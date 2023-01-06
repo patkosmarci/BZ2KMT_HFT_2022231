@@ -21,7 +21,7 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Id\tName\t\tModel");
             foreach (var item in cars)
             {
-                Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t\t{item.Model}");
+                WriteToConsole(item);
             }
         }
         public void Read()
@@ -30,7 +30,8 @@ namespace BZ2KMT_HFT_2021222.Client
             int id = int.Parse(Console.ReadLine());
             Car car = rest.Get<Car>(id, "car");
             Console.WriteLine("Id\tName\t\tModel");
-            Console.WriteLine($"{car.CarId}\t{car.Brand.BrandName}\t\t{car.Model}");
+
+            WriteToConsole(car);
         }
         public void Update()
         {
@@ -38,7 +39,7 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Id\tName\t\tModel");
             foreach (var item in cars)
             {
-                Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t\t{item.Model}");
+                WriteToConsole(item);
             }
             Console.Write("\nEnter Car's id to update:");
             int id = int.Parse(Console.ReadLine());
@@ -95,11 +96,25 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Id\tName\t\tModel");
             foreach (var item in cars)
             {
-                Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t\t{item.Model}");
+                WriteToConsole(item);
             }
             Console.Write("\nPlease give an id to delete:");
             int id = int.Parse(Console.ReadLine());
             rest.Delete(id, "car");
+        }
+        public void WriteToConsole(Car item)
+        {
+            if(item.Brand != null)
+            {
+                if (item.Brand.BrandName.Length < 8)
+                    Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t\t{item.Model}");
+                else
+                    Console.WriteLine($"{item.CarId}\t{item.Brand.BrandName}\t{item.Model}");
+            }
+            else
+            {
+                Console.WriteLine($"{item.CarId}\tBrand not find\t{item.Model}");
+            }
         }
     }
 }

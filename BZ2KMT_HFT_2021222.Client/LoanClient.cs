@@ -20,12 +20,10 @@ namespace BZ2KMT_HFT_2021222.Client
         public void ReadAll()
         {
             List<Loan> loans = rest.Get<Loan>("loan");
-            Console.WriteLine("Id\tRental\t\tRented car\tRent date");
+            Console.WriteLine("Id\tRental\t\t\tRented car");
             foreach (var item in loans)
             {
-                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t" +
-                    $"{item.Car.Model}\t\t{item.RentDate.ToShortDateString()}\n" +
-                    $"Cost of rent in USD: {item.CostInUSD}$\n");
+                WriteToConsole(item);
             }
         }
         public void Read()
@@ -33,9 +31,8 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.Write("Give a loan's id:");
             int id = int.Parse(Console.ReadLine());
             Loan loan = rest.Get<Loan>(id, "loan");
-            Console.WriteLine("Id\tRental\t\tRented car\tRent date");
-            Console.WriteLine($"{loan.LoanId}\t{loan.Person.FirstName} {loan.Person.LastName}\t{loan.Car.Brand.BrandName} " +
-                    $"{loan.Car.Model}\t{loan.RentDate.ToShortDateString()}");
+            Console.WriteLine("Id\tRental\t\t\tRented car");
+            WriteToConsole(loan);
         }
         public void Create()
         {
@@ -70,18 +67,25 @@ namespace BZ2KMT_HFT_2021222.Client
         public void Update()
         {
             List<Loan> loans = rest.Get<Loan>("loan");
-            Console.WriteLine("Id\tRental\t\tRented car\tRent date");
+            Console.WriteLine("Id\tRental\t\t\tRented car");
             foreach (var item in loans)
             {
-                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t" +
-                    $"{item.Car.Model}\t\t{item.RentDate.ToShortDateString()}\n" +
-                    $"Cost of rent in USD: {item.CostInUSD}$\n");
+                WriteToConsole(item);
             }
 
             Console.Write("\nPick a Loan's id to update:");
             int id = int.Parse(Console.ReadLine());
             Loan loan = rest.Get<Loan>(id, "loan");
-            loan.RentDate = DateTime.Now;
+            Console.WriteLine("Do you want to change update the date of the rent?(Y/N)");
+            string choice = "";
+            do
+            {
+                choice = Console.ReadLine();
+            } while (choice.ToLower() != "y" || choice.ToLower() != "n");
+
+            if(choice == "y")
+                loan.RentDate = DateTime.Now;
+
             Console.Write($"\nEnter the cost of the rent [old: {loan.CostInUSD}]:");
             loan.CostInUSD = int.Parse(Console.ReadLine());
 
@@ -111,17 +115,40 @@ namespace BZ2KMT_HFT_2021222.Client
         public void Delete()
         {
             List<Loan> loans = rest.Get<Loan>("loan");
-            Console.WriteLine("Id\tRental\t\tRented car\tRent date");
+            Console.WriteLine("Id\tRental\t\t\tRented car");
             foreach (var item in loans)
             {
-                Console.WriteLine($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t" +
-                    $"{item.Car.Model}\t\t{item.RentDate.ToShortDateString()}\n" +
-                    $"Cost of rent in USD: {item.CostInUSD}$\n");
+                WriteToConsole(item);
             }
 
             Console.Write("\nPlease pick an id to delete:");
             int id = int.Parse(Console.ReadLine());
             rest.Delete(id, "loan");
+        }
+
+        public void WriteToConsole(Loan item)
+        {
+            if(item.Person != null)
+            {
+                if (item.Person.FirstName.Length + item.Person.LastName.Length < 7)
+                {
+                    Console.Write($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t\t\t");
+                }
+                else if (item.Person.FirstName.Length + item.Person.LastName.Length >= 21)
+                {
+                    Console.Write($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName.Substring(0, 3)}...\t\t");
+                }
+                else
+                {
+                    Console.Write($"{item.LoanId}\t{item.Person.FirstName} {item.Person.LastName}\t\t");
+                }
+            }
+            else
+            {
+                Console.Write($"{item.LoanId}\tCan't find a person\t");
+            }
+            Console.WriteLine($"{(item.Car == null ? "We couldn't find a car to this loan" : item.Car.Brand.BrandName + " " + item.Car.Model)}\n" +
+                $"Date: {item.RentDate.ToShortDateString()}\nCost of rent: {item.CostInUSD}$\n");
         }
     }
 }
