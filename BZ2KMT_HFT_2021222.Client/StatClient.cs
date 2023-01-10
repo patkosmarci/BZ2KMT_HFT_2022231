@@ -55,7 +55,7 @@ namespace BZ2KMT_HFT_2021222.Client
 
             foreach (var item in brands)
             {
-                Console.WriteLine($"{item.BrandName}{(item.BrandName.Length > 7 ? "\t" : "")}\t{item.AvgYear}");
+                Console.WriteLine($"{item.BrandName}{(item.BrandName.Length <= 7 ? "\t" : "")}\t{item.AvgYear}");
             }
         }
         public void MaxCostForLoan()
@@ -72,7 +72,7 @@ namespace BZ2KMT_HFT_2021222.Client
             Console.WriteLine("Person with most loans:");
             foreach (var item in person)
             {
-                Console.WriteLine(item.FirstName + " " + item.LastName + " Loans count: " + item.Loans.Count);
+                Console.WriteLine(item.FirstName + " " + item.LastName);
             }
         }
         public void PersonsLoanAccount()
