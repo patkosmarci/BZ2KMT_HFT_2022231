@@ -39,17 +39,20 @@ namespace BZ2KMT_HFT_2021222.WpfClient
         public MainWindowViewModel()
         { 
             Cars = new RestCollection<Car>("http://localhost:40003/", "car");
-            CreateCarCommand = new RelayCommand(() =>
+
+            CreateCarCommand = new RelayCommand(() => //need fix
             {
                 Cars.Add(new Car()
                 {
                     Model = SelectedCar.Model
                 });
             });
-            UpdateCarCommand = new RelayCommand(() =>
+
+            UpdateCarCommand = new RelayCommand(() => //need fix
             {
                 Cars.Update(SelectedCar);
             });
+
             DeleteCarCommand = new RelayCommand(() =>
             {
                 Cars.Delete(SelectedCar.CarId);
@@ -58,6 +61,7 @@ namespace BZ2KMT_HFT_2021222.WpfClient
             {
                 return SelectedCar != null;
             });
+
             SelectedCar = new Car();
         }
     }
